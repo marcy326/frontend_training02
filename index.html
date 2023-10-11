@@ -17,50 +17,24 @@
     <div class="messages" id="scroll">
         <div class="balloon_left">
             <div class="icon">●</div>
-            <p>Hello, World!Hello, World!Hello, World!Hello, World!Hello, World!Hello, World!</p>
             <p>Hello, World!</p>
             <div class="timestamp">21:10</div>
         </div>
         <div class="balloon_left">
             <div class="icon">●</div>
-            <p>Hello, World!</p>
-            <p>Hello, World!</p>
+            <p>メッセージを送信してください。</p>
+            <p>送信ボタンをクリックするか、Shift+Enterキーで送信できます。</p>
             <div class="timestamp">21:10</div>
         </div>
         <div class="balloon_right">
-            <p>こんにちは！<br>こんにちは！<br></p>
+            <p>サンプルメッセージ</p>
             <div class="timestamp">21:10</div>
-        </div> 
-        <div class="balloon_left">
-            <div class="icon">●</div>
-            <p>こんにちは！<br>こんにちは！<br></p>
-            <div class="timestamp">21:10</div>
-        </div> 
-        <div class="balloon_right">
-            <p>こんにちは！<br>こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！こんにちは！<br></p>
-            <div class="timestamp">21:10</div>
-        </div> 
-        <div class="balloon_right">
-            <p>こんにちは！<br>こんにちは！<br></p>
-            <div class="timestamp">21:10</div>
-        </div> 
-        <div class="balloon_right">
-            <p>こんにちは！<br>こんにちは！<br></p>
-            <div class="timestamp">21:10</div>
-        </div> 
-        <div class="balloon_right">
-            <p>こんにちは！<br>こんにちは！<br></p>
-            <div class="timestamp">21:10</div>
-        </div> 
-        <div class="balloon_right">
-            <p>こんにちは！<br>こんにちは！<br></p>
-            <div class="timestamp">21:10</div>
-        </div> 
+        </div>
     </div>
-    <div class="input" id="footer">
+    <form class="input" id="footer" name="msg_form">
         <textarea id="message" name="message" rows="1" placeholder="メッセージ"></textarea>
-        <input type="submit" value=">>">
-    </div>
+        <input type="submit" id="send_btn">
+    </form>
     <script src="js/script.js"></script>
 </body>
 </html>

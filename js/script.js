@@ -1,56 +1,31 @@
-//// 1. 時間リアルタイム更新
-// function set2fig(num) {
-//     // 桁数が1桁だったら先頭に0を加えて2桁に調整する
-//     var ret;
-//     if( num < 10 ) { ret = "0" + num; }
-//     else { ret = num; }
-//     return ret;
-// }
-// function showClock(class_name) {
-//     var targets = document.getElementsByClassName(class_name);
-//     var now = new Date();
-//     var Hour = set2fig(now.getHours());
-//     var Min = set2fig(now.getMinutes());
-//     for (i=0; i < targets.length; i++){
-//         var target = targets[i];
-//         target.innerHTML = Hour + ":" + Min;
-//     }
-// }
-// showClock("DateTimeDisp");
-// setInterval('showClock()',1000);
-
-// 2. スクロールの初期位置を一番下に設定
-//let target = document.getElementById('scroll');
-//target.scrollTo(0, target.scrollHeight);
-
-// 3. テキストエリアの高さを自動調整
-window.addEventListener("DOMContentLoaded", () => {
+// スクロールの初期位置を一番下に設定
+function scrollToBottom() {
     let target = document.getElementById('scroll');
-    target.scrollTo(0, target.scrollHeight);
-    // textareaタグを全て取得
-    const textareaEls = document.querySelectorAll("textarea");
+    target.scrollTo(0, target.scrollHeight); 
+}
+
+// テキストエリアの高さを自動調整
+window.addEventListener("DOMContentLoaded", () => {
+    scrollToBottom();
+
+    var textareaEl = document.getElementById("message");
   
-    textareaEls.forEach((textareaEl) => {
-      // デフォルト値としてスタイル属性を付与
-      textareaEl.setAttribute("style", `height: ${textareaEl.scrollHeight}px;`);
-      // inputイベントが発生するたびに関数呼び出し
-      textareaEl.addEventListener("input", setTextareaHeight);
-      textareaEl.addEventListener("input", setMessageHeight);
-    });
+    // デフォルト値としてスタイル属性を付与
+    textareaEl.setAttribute("style", `height: ${textareaEl.scrollHeight}px;`);
+    // inputイベントが発生するたびに関数呼び出し
+    textareaEl.addEventListener("input", setTextareaHeight);
+    textareaEl.addEventListener("input", setMessageHeight);
+
     window.addEventListener("resize", setMessageHeight);
 });
+
 // textareaの高さを計算して指定する関数
 function setTextareaHeight() {
     this.style.height = "auto";
     this.style.height = `${this.scrollHeight}px`;
 }
 
-function setHeight() {
-    setTextareaHeight();
-    setMessageHeight();
-}
-
-// 4. テキストエリアとヘッダーの高さを取得して、メッセージ部分のmargin調整
+// テキストエリアとヘッダーの高さを取得して、メッセージ部分のmargin調整
 function getHeight(id_name){
     var obj = document.getElementById(id_name);
     var h = obj.offsetHeight;
@@ -62,4 +37,38 @@ function setMessageHeight() {
     messages.style.marginTop =  (getHeight("header"))+'px';
     messages.style.marginBottom =  (getHeight("footer"))+'px';
 }
-setMessageHeight();
+
+// 送信時の処理
+function sendMessage() {
+    // テキストエリアの値を取得
+    var textareaEl = document.getElementById("message");
+    var textareaValue = message.value;
+    if (textareaValue != ""){
+            textareaValue = textareaValue.split("\n").join("<br>");
+
+        // HTMLに追加
+        var outputDiv = document.getElementById("scroll");
+        outputDiv.innerHTML += '<div class="balloon_right"><p>' + textareaValue + '</p><div class="timestamp">21:10</div></div>';
+
+        // テキストエリアをクリア
+        textareaEl.value = "";
+        textareaEl.style.height = "auto";
+        textareaEl.style.height = `${textareaEl.scrollHeight}px`;
+
+        scrollToBottom();
+    }
+}
+
+// Submitボタンが押された時の処理
+document.getElementById("footer").addEventListener("submit", function(event) {
+    event.preventDefault(); // デフォルトのフォーム送信を防ぐ
+    sendMessage();
+});
+
+// Shift+Enterキーが押されたときの処理
+document.getElementById("footer").addEventListener("keydown", function(event) {
+    if (event.key === "Enter" && event.shiftKey) {
+        event.preventDefault(); // デフォルトの改行を防ぐ
+        sendMessage();
+    }
+});
