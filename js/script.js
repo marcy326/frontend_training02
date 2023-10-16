@@ -58,6 +58,7 @@ function sendMessage() {
         textareaEl.value = "";
         textareaEl.style.height = "auto";
         textareaEl.style.height = `${textareaEl.scrollHeight}px`;
+        setMessageHeight();
 
         scrollToBottom();
     }
